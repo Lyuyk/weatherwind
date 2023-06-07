@@ -92,18 +92,33 @@ AirQualityCity结构体包含当日各项空气指数数据，如AQI，主要污
 
 私有成员及作用：
 
-| 成员名称                                                     | 作用                 |      |
-| :----------------------------------------------------------- | :------------------- | :--- |
-| QString m_PrivateKey（API key）QNetworkAccessManager *m_Manager | 网络配置             |      |
-| bool m_IsConfigNetWorkProxy = false                          | 是否设置代理         |      |
-| WeatherGetType m_WeatherGetType                              | 要获取的天气类型     |      |
-| QMap<WeatherGetType, weatherBaseInfo*> m_TypeInterfaceMap    | 天气类型-类列表      |      |
-| QString m_LocationCity;                                      | 当前的城市信息       |      |
-| QString m_AirQualityCity;                                    | 当前空气质量检测城市 |      |
-| WeatherBaseData m_WeatherBaseData                            | 天气的基础信息       |      |
-| WeatherUpdateTime m_WeatherTime                              | 更新时间信息         |      |
-| WeatherStatus m_WeatherStatus                                | 状态码信息           |      |
-| QMap<QString, QList<CityInfo>> m_ChinaCityInfo               | 城市信息列表         |      |
-|                                                              |                      |      |
+| 成员名称                                                     | 作用                 |
+| :----------------------------------------------------------- | :------------------- |
+| QString m_PrivateKey（API key）QNetworkAccessManager *m_Manager | 网络配置             |
+| bool m_IsConfigNetWorkProxy = false                          | 是否设置代理         |
+| WeatherGetType m_WeatherGetType                              | 要获取的天气类型     |
+| QMap<WeatherGetType, weatherBaseInfo*> m_TypeInterfaceMap    | 天气类型-类列表      |
+| QString m_LocationCity;                                      | 当前的城市信息       |
+| QString m_AirQualityCity;                                    | 当前空气质量检测城市 |
+| WeatherBaseData m_WeatherBaseData                            | 天气的基础信息       |
+| WeatherUpdateTime m_WeatherTime                              | 更新时间信息         |
+| WeatherStatus m_WeatherStatus                                | 状态码信息           |
+| QMap<QString, QList<CityInfo>> m_ChinaCityInfo               | 城市信息列表         |
+|                                                              |                      |
 
 
+
+## 测试情况
+
+一开始遇到的最大得问题是如何向API发送请求，参考了网上一些代码以及查询了相关的官方文档之后学会了用QHttp，QUrlQuery，QNetworkProxy设置网络的相关参数以及发送请求；第二个问题是如何处理API接口发送回来的json文件，通过查询相关文档后发现可以用QDomDocument和QDomElement来存储解析的json文件里的元素；第三个难题是如何将选定的城市名字拼接好并向API中发送请求，在网上查询后发现一个方法，通过对腾讯的一个XML文件解析后可以得到城市列表，供以在文本框中选择，并且方便地拼接好城市名字以向API接口发送请求；第四个难题是如何显示天气图标，经过查询API接口文档发现它可以返回StatusCode，通过克隆得到它StatusCode对应的天气图标库里的图标文件，然后用QPixmap方法设定天气图标。经过测试，软件能够正常地发送请求，选择城市的解析也正常运行，天气图标也能解析并显示正常。
+
+ 
+
+八、  程序运行截图及关键代码
+ ![img](file:///C:/Users/csap0/AppData/Local/Temp/msohtmlclip1/01/clip_image002.gif)
+
+![img](file:///C:/Users/csap0/AppData/Local/Temp/msohtmlclip1/01/clip_image004.gif)
+
+解析并获取信息
+
+![img](file:///C:/Users/csap0/AppData/Local/Temp/msohtmlclip1/01/clip_image006.gif)
